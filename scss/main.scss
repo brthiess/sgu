@@ -1,0 +1,98 @@
+$main: #33668E;
+$secondary: #FFF5AC;
+
+$phone: "only screen and (max-width : 479px)";
+$tablets: "only screen and (max-width : 1000px)";
+$laptops: "only screen and (max-width : 1600px)";
+
+@import 'https://fonts.googleapis.com/css?family=Lato:300,300i,400';
+
+*{margin:0; padding:0;}
+html {height: 100%;}
+body{font-family:"Lato", sans-serif; font-weight: 300; height: 100%; background: $main; transition: background 2s;}
+header {
+	text-align:center;
+	padding-top: 10vh;
+}
+#main-title {
+	font-size: 80px;
+	line-height: 0.8;
+	opacity:0;	
+	font-weight: 300;
+	font-family:"Lato";
+	color:white;
+	text-transform:uppercase;
+	transform:translateY(30vh);
+	.small {
+		font-size: 45px;
+	}
+	@media #{$laptops}{
+		font-size: 50px;
+	}
+	@media #{$tablets}{
+		font-size: 40px;
+	}
+	
+}
+#subtitle {
+	opacity:0;
+	color: white;
+	font-size: 40px;
+	text-transform:uppercase;
+	margin: 10px 0;
+	font-weight: 300;
+	color: lighten($main, 40%);
+	transform:translateY(30vh);
+	@media #{$laptops}{
+		font-size: 30px;
+	}
+	@media #{$tablets}{
+		font-size: 25px;
+	}
+	@media #{$phone}{
+		font-size: 22px;
+	}
+}
+#main-title, #subtitle {
+	transition: opacity 2s, transform 1s;
+}
+
+/* Icons */
+#main-list-container {
+	text-align:center;
+	max-width: 640px;
+	width: 100%;
+	margin:auto;
+}
+#main-list {
+	list-style:none;
+	margin: 40px 0;
+}
+.main-list-item {
+	margin: 10px 20px;
+	display:inline-block;
+	opacity:0;
+	transform: translateY(50px);
+	transition: all 0.5s;
+	width: 120px;
+}
+.main-list-item-icon {
+    padding: 20px;
+    border: 2px solid #00BCD4;
+    width: 70px;
+    height: 70px;
+    border-radius: 35px;
+    box-sizing: border-box;
+	margin:10px auto;
+	cursor:pointer;
+	img {
+		width: 100%;
+		height: 100%;
+	}
+}
+.main-list-item-text{
+	color:white;
+	text-transform: uppercase;
+	font-weight: 500;
+}
+	

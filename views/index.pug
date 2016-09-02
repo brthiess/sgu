@@ -1,0 +1,67 @@
+doctype
+html
+	head
+		meta(http-equiv='X-UA-Compatible', content='IE=edge')
+		meta(http-equiv='Content-Type', content='text/html; charset=utf-8')
+		title SGU Science or Fiction Stats
+		meta(name='description', content='The Skeptics Guide to the Universe Science or Fiction Statistics')
+		meta(name='viewport', content='minimum-scale=1.0, width=device-width')
+		link(rel='apple-touch-icon', href='')
+		link(rel='shortcut icon', type='image/x-icon', href='')
+		link(rel='stylesheet', href='css/main.css')
+	
+	body
+		header
+			h1(id='main-title') The Skeptics Guide To The Universe
+			h2(id='subtitle') Science or Fiction Stats
+		section(id='main-list-container')
+			ul(id='main-list')
+				li(class='main-list-item') 
+					div(class='main-list-item-icon')
+							img(src='images/icons/all-time.png')
+					span(class='main-list-item-text') All Time Stats
+				li(class='main-list-item') 
+					div(class='main-list-item-icon')
+							img(src='images/icons/over-time.png')
+					span(class='main-list-item-text') Win Rate
+				li(class='main-list-item') 
+					div(class='main-list-item-icon')
+							img(src='images/icons/categories.png')
+					span(class='main-list-item-text') Categories
+				li(class='main-list-item') 
+					div(class='main-list-item-icon')
+							img(src='images/icons/numbers.gif')
+					span(class='main-list-item-text') Order Bias
+				li(class='main-list-item') 
+					div(class='main-list-item-icon')
+							img(src='images/icons/audience.png')
+					span(class='main-list-item-text') Audience
+				li(class='main-list-item') 
+					div(class='main-list-item-icon')
+							img(src='images/icons/over-time.png')
+					span(class='main-list-item-text') Guests
+				li(class='main-list-item') 
+					div(class='main-list-item-icon')
+							img(src='images/icons/over-time.png')
+					span(class='main-list-item-text') Streaks
+				li(class='main-list-item') 
+					div(class='main-list-item-icon')
+							img(src='images/icons/calendar.png')
+					span(class='main-list-item-text') By Date
+				
+		
+	  
+	script.		
+		setTimeout(function(){document.getElementsByTagName("body")[0].style.background = "#00334B";}, 100);
+		setTimeout(function(){document.getElementById("main-title").style.opacity = 1;}, 1000);
+		setTimeout(function(){document.getElementById("subtitle").style.opacity = 1;}, 2000);
+		setTimeout(function(){document.getElementById("main-title").style.transform = "translateY(0vh)";}, 3000);
+		setTimeout(function(){document.getElementById("subtitle").style.transform = "translateY(0vh)";}, 3000);
+		function makeVisible(element, delay){	
+			setTimeout(function(){element.style.opacity = 1; element.style.transform = "translateY(0vh)";}, delay);
+		}
+		
+		for(var i = 0; i < document.getElementsByClassName("main-list-item").length; i++){
+			makeVisible(document.getElementsByClassName("main-list-item")[i], (3800 + (i * 150)));
+		}
+	script(src='js/script.js')
