@@ -16,4 +16,8 @@ app.get('/', function (req, res) {
   res.render('index'
   )
 })
+app.get('/chart', function (req, res) {
+  res.render('chart'
+  )
+})
 app.listen(3000)

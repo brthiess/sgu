@@ -11,45 +11,47 @@ html
 		link(rel='stylesheet', href='css/main.css')
 	
 	body
-		header
+		section(id='main-page')
 			h1(id='main-title') The Skeptics Guide To The Universe
 			h2(id='subtitle') Science or Fiction Stats
-		section(id='main-list-container')
-			ul(id='main-list')
-				li(class='main-list-item') 
-					div(class='main-list-item-icon')
-							img(src='images/icons/all-time.png')
-					span(class='main-list-item-text') All Time Stats
-				li(class='main-list-item') 
-					div(class='main-list-item-icon')
-							img(src='images/icons/over-time.png')
-					span(class='main-list-item-text') Win Rate
-				li(class='main-list-item') 
-					div(class='main-list-item-icon')
-							img(src='images/icons/categories.png')
-					span(class='main-list-item-text') Categories
-				li(class='main-list-item') 
-					div(class='main-list-item-icon')
-							img(src='images/icons/numbers.gif')
-					span(class='main-list-item-text') Order Bias
-				li(class='main-list-item') 
-					div(class='main-list-item-icon')
-							img(src='images/icons/audience.png')
-					span(class='main-list-item-text') Audience
-				li(class='main-list-item') 
-					div(class='main-list-item-icon')
-							img(src='images/icons/over-time.png')
-					span(class='main-list-item-text') Guests
-				li(class='main-list-item') 
-					div(class='main-list-item-icon')
-							img(src='images/icons/over-time.png')
-					span(class='main-list-item-text') Streaks
-				li(class='main-list-item') 
-					div(class='main-list-item-icon')
-							img(src='images/icons/calendar.png')
-					span(class='main-list-item-text') By Date
+			section(id='main-list-container')
+				ul(id='main-list')
+					li(class='main-list-item' onclick='loadGraph("data/all-time.tsv", "barchart", "all-time", ".chart-container")') 
+						div(class='main-list-item-icon')
+								img(src='images/icons/all-time.png')
+						span(class='main-list-item-text') All Time Stats
+					li(class='main-list-item') 
+						div(class='main-list-item-icon')
+								img(src='images/icons/over-time.png')
+						span(class='main-list-item-text') Win Rate
+					li(class='main-list-item') 
+						div(class='main-list-item-icon')
+								img(src='images/icons/categories.png')
+						span(class='main-list-item-text') Categories
+					li(class='main-list-item') 
+						div(class='main-list-item-icon')
+								img(src='images/icons/numbers.gif')
+						span(class='main-list-item-text') Order Bias
+					li(class='main-list-item') 
+						div(class='main-list-item-icon')
+								img(src='images/icons/audience.png')
+						span(class='main-list-item-text') Audience
+					li(class='main-list-item') 
+						div(class='main-list-item-icon')
+								img(src='images/icons/over-time.png')
+						span(class='main-list-item-text') Guests
+					li(class='main-list-item') 
+						div(class='main-list-item-icon')
+								img(src='images/icons/over-time.png')
+						span(class='main-list-item-text') Streaks
+					li(class='main-list-item') 
+						div(class='main-list-item-icon')
+								img(src='images/icons/calendar.png')
+						span(class='main-list-item-text') By Date
+					
+		section(id='graph-page')
+			section(class='chart-container')
 				
-		
 	  
 	script.		
 		setTimeout(function(){document.getElementsByTagName("body")[0].style.background = "#00334B";}, 100);
@@ -64,4 +66,5 @@ html
 		for(var i = 0; i < document.getElementsByClassName("main-list-item").length; i++){
 			makeVisible(document.getElementsByClassName("main-list-item")[i], (3800 + (i * 150)));
 		}
-	script(src='js/script.js')
+	script(src='js/script.js' defer async)
+	script(src='js/d3.v3.min.js' defer async)
