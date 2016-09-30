@@ -13,11 +13,11 @@ app.use(express.logger('dev'))
 app.use(express.static(__dirname + '/public'))
 
 app.get('/', function (req, res) {
-  res.render('index'
+  res.render('index', {page: 'main'}
   )
 })
-app.get('/chart', function (req, res) {
-  res.render('chart'
+app.get('/all-time', function (req, res) {
+  res.render('index', {data: 'all-time', type: 'barchart'}
   )
 })
 app.listen(3000)

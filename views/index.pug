@@ -8,63 +8,82 @@ html
 		meta(name='viewport', content='minimum-scale=1.0, width=device-width')
 		link(rel='apple-touch-icon', href='')
 		link(rel='shortcut icon', type='image/x-icon', href='')
-		link(rel='stylesheet', href='css/main.css')
+		link(rel='stylesheet', href='/css/main.css')
 	
 	body
-		section(id='main-page')
+		section(id='main-page' class=typeof page === "undefined" ? "hidden invisible" : "")
 			h1(id='main-title') The Skeptics Guide To The Universe
 			h2(id='subtitle') Science or Fiction Stats
 			section(id='main-list-container')
 				ul(id='main-list')
-					li(class='main-list-item' onclick='loadGraph("data/all-time.tsv", "barchart", "all-time", ".chart-container")') 
-						div(class='main-list-item-icon')
-								img(src='images/icons/all-time.png')
-						span(class='main-list-item-text') All Time Stats
-					li(class='main-list-item') 
-						div(class='main-list-item-icon')
-								img(src='images/icons/over-time.png')
-						span(class='main-list-item-text') Win Rate
-					li(class='main-list-item') 
-						div(class='main-list-item-icon')
-								img(src='images/icons/categories.png')
-						span(class='main-list-item-text') Categories
-					li(class='main-list-item') 
-						div(class='main-list-item-icon')
-								img(src='images/icons/numbers.gif')
-						span(class='main-list-item-text') Order Bias
-					li(class='main-list-item') 
-						div(class='main-list-item-icon')
-								img(src='images/icons/audience.png')
-						span(class='main-list-item-text') Audience
-					li(class='main-list-item') 
-						div(class='main-list-item-icon')
-								img(src='images/icons/over-time.png')
-						span(class='main-list-item-text') Guests
-					li(class='main-list-item') 
-						div(class='main-list-item-icon')
-								img(src='images/icons/over-time.png')
-						span(class='main-list-item-text') Streaks
-					li(class='main-list-item') 
-						div(class='main-list-item-icon')
-								img(src='images/icons/calendar.png')
-						span(class='main-list-item-text') By Date
+					li(class='main-list-item fade-out-down' onclick='loadGraph("/data/all-time.json", "barchart", "all-time", true)')
+						div(class='main-list-item-icon-wrapper')
+							div(class='main-list-item-icon')
+									img(src='/images/icons/all-time.png')
+							span(class='main-list-item-text') All Time Stats
+					li(class='main-list-item fade-out-down') 
+						div(class='main-list-item-icon-wrapper')
+							div(class='main-list-item-icon')
+									img(src='/images/icons/over-time.png')
+							span(class='main-list-item-text') Win Rate
+					li(class='main-list-item fade-out-down') 
+						div(class='main-list-item-icon-wrapper')
+							div(class='main-list-item-icon')
+									img(src='/images/icons/categories.png')
+							span(class='main-list-item-text') Categories
+					li(class='main-list-item fade-out-down') 
+						div(class='main-list-item-icon-wrapper')
+							div(class='main-list-item-icon')
+									img(src='/images/icons/numbers.gif')
+							span(class='main-list-item-text') Order Bias
+					li(class='main-list-item fade-out-down')
+						div(class='main-list-item-icon-wrapper')
+							div(class='main-list-item-icon')
+									img(src='/images/icons/audience.png')
+							span(class='main-list-item-text') Audience
+					li(class='main-list-item fade-out-down')
+						div(class='main-list-item-icon-wrapper')
+							div(class='main-list-item-icon')
+									img(src='/images/icons/over-time.png')
+							span(class='main-list-item-text') Guests
+					li(class='main-list-item fade-out-down')
+						div(class='main-list-item-icon-wrapper')
+							div(class='main-list-item-icon')
+									img(src='/images/icons/over-time.png')
+							span(class='main-list-item-text') Streaks
+					li(class='main-list-item fade-out-down')
+						div(class='main-list-item-icon-wrapper')
+							div(class='main-list-item-icon')
+									img(src='/images/icons/calendar.png')
+							span(class='main-list-item-text') By Date
 					
-		section(id='graph-page')
+		section(id='graph-page' class=typeof page === "undefined" ? "transition" : "hidden transition")
+			a(class='back-button' href="/" onclick="goToMainPage(event)")
+				img(src='/images/back.png')
 			section(class='chart-container')
-				
-	  
+				canvas(id='chart' class=typeof page === "undefined" ? "transition" : "invisible-move-down transition")
+	- var modifier  = (page === 'main' ? '1' : '0')			
+	
 	script.		
-		setTimeout(function(){document.getElementsByTagName("body")[0].style.background = "#00334B";}, 100);
-		setTimeout(function(){document.getElementById("main-title").style.opacity = 1;}, 1000);
-		setTimeout(function(){document.getElementById("subtitle").style.opacity = 1;}, 2000);
-		setTimeout(function(){document.getElementById("main-title").style.transform = "translateY(0vh)";}, 3000);
-		setTimeout(function(){document.getElementById("subtitle").style.transform = "translateY(0vh)";}, 3000);
+		setTimeout(function(){document.getElementById("main-page").style.background = "#00334B";}, 100 * #{modifier});
+		setTimeout(function(){document.getElementById("main-title").style.opacity = 1;}, 1000 * #{modifier});
+		setTimeout(function(){document.getElementById("subtitle").style.opacity = 1;}, 2000 * #{modifier});
+		setTimeout(function(){document.getElementById("main-title").style.transform = "translateY(0vh)";}, 3000 * #{modifier});
+		setTimeout(function(){document.getElementById("subtitle").style.transform = "translateY(0vh)";}, 3000 * #{modifier});
 		function makeVisible(element, delay){	
-			setTimeout(function(){element.style.opacity = 1; element.style.transform = "translateY(0vh)";}, delay);
+			setTimeout(function(){element.className = element.className.replace(/\bfade-out-down\b/,'');}, delay * #{modifier});
 		}
-		
+		function makeInvisible(element, delay){	
+			setTimeout(function(){element.className += 'fade-out-down';}, delay * #{modifier});
+		}
+		icons = document.getElementsByClassName("main-list-item");
 		for(var i = 0; i < document.getElementsByClassName("main-list-item").length; i++){
-			makeVisible(document.getElementsByClassName("main-list-item")[i], (3800 + (i * 150)));
+			makeVisible(icons[i], (3800 + (i * 150)));
 		}
-	script(src='js/script.js' defer async)
-	script(src='js/d3.v3.min.js' defer async)
+	script(src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.2.2/Chart.min.js')
+	script(src='/js/script.js')
+	if page != 'main'
+		script.
+			loadGraph("/data/#{data}.json", "#{type}", "#{data}", false)
+	
+	

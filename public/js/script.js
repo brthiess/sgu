@@ -1,18 +1,83 @@
-function loadGraph(graph, graphType, page, chartContainer){ 	
-	transitionToGraph();
+function loadGraph(pathToData, graphType, page, transition){ 	
+	if (transition){
+		transitionToGraph();
+	}
 	history.pushState(null, page, page);
 	if(graphType = 'barchart'){
-		loadBarChart(graph, chartContainer);
+		loadBarChartData(pathToData);
 	}
 }
 
 function transitionToGraph(){
-	document.getElementsByTagName("body")[0].style.background = "white";
-	document.getElementById("main-page").style.opacity = 0;
-	document.getElementById("graph-page").style.opacity = 1;
-	document.getElementById("graph-page").style.display = 'block';
+	var icons = document.getElementsByClassName("main-list-item");
+	for(var i = 0; i < icons.length; i++){
+		makeInvisible(icons[i], (i * 55));
+	}
+	document.getElementById("main-title").className += ' invisible ';
+	document.getElementById("subtitle").className += ' invisible ';
+	setTimeout(function(){document.getElementById("main-page").className += ' invisible ';}, 200);
+	setTimeout(function(){document.getElementById("main-page").className += ' hidden ';}, 700);
+	setTimeout(function(){document.getElementById("graph-page").className = document.getElementById("graph-page").className.replace(/\bhidden\b/,'');}, 700);
+	setTimeout(function(){document.getElementById("chart").className = document.getElementById("graph-page").className.replace(/\binvisible-move-down\b/,'');}, 800);
+	
 }
 
+function goToMainPage(e) {
+	e.preventDefault();
+	history.pushState(null, null, '/');
+	transitionToMainPage();
+}
+
+function transitionToMainPage(){
+	setTimeout(function(){document.getElementById("chart").className += ' invisible-move-down ';}, 0);
+	setTimeout(function(){document.getElementById("graph-page").className += ' hidden ';}, 700);
+	setTimeout(function(){document.getElementById("main-page").className = document.getElementById("main-page").className.replace(/\bhidden\b/,'');}, 700);
+	setTimeout(function(){document.getElementById("main-page").className = document.getElementById("main-page").className.replace(/\binvisible\b/,'');}, 800);
+	var icons = document.getElementsByClassName("main-list-item");
+	for(var i = 0; i < icons.length; i++){
+		makeVisible(icons[i], (i * 55) + 800);
+	}
+	setTimeout(function(){document.getElementById("main-title").className = document.getElementById("main-title").className.replace(/\binvisible\b/,'');}, 800);
+	setTimeout(function(){document.getElementById("subtitle").className = document.getElementById("subtitle").className.replace(/\binvisible\b/,'');}, 800);
+}
+
+
+function loadBarChartData(pathToData, chartId){
+	console.log(pathToData);
+	makeRequest(pathToData, renderChart);
+}
+
+
+function makeRequest(url, callback) {
+    httpRequest = new XMLHttpRequest();
+
+    if (!httpRequest) {
+      alert('Giving up :( Cannot create an XMLHTTP instance');
+      return false;
+    }
+    httpRequest.onreadystatechange = callback;
+    httpRequest.open('GET', url);
+    httpRequest.send();
+  }
+
+  function renderChart() {
+	var ctx = document.getElementById('chart');
+	
+    if (httpRequest.readyState === XMLHttpRequest.DONE) {
+      if (httpRequest.status === 200) {
+        var parsed = JSON.parse(httpRequest.responseText);		
+		var myBarChart = new Chart(ctx, {
+			type: 'bar',
+			data: parsed
+		});
+      } else {
+        alert('There was a problem with the request.');
+      }
+    }
+  }
+
+
+/*
 function loadBarChart(file, chartContainer){
 
 	var margin = {top: 80, right: 180, bottom: 80, left: 180},
@@ -133,8 +198,9 @@ function loadBarChart(file, chartContainer){
 		  })
 		  .text(function(d){
 			return d;
-		  }) */
+		  }) 
 
 
 	});
 }
+*/
