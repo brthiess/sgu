@@ -1,6 +1,7 @@
 /*
  * Module dependencies
  */
+ 
 var express = require('express');
 
 
@@ -12,12 +13,19 @@ app.use(express.logger('dev'))
 
 app.use(express.static(__dirname + '/public'))
 
-app.get('/', function (req, res) {
-  res.render('index', {page: 'main'}
-  )
+app.get('/*', function (req, res) {
+	path = req.path.replace(/\//g, "");
+	if(path == ""){
+		path = 'index';
+	}
+	console.log(path);
+	if (req.query.content_only == 'true') {
+		res.render(path, {content_only: true});
+	}
+	else {
+		res.render(path, {content_only: false});
+	}
+  
 })
-app.get('/all-time', function (req, res) {
-  res.render('index', {data: 'all-time', type: 'barchart'}
-  )
-})
+
 app.listen(3000)

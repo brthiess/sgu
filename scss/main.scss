@@ -5,14 +5,20 @@ $phone: "only screen and (max-width : 479px)";
 $tablets: "only screen and (max-width : 1000px)";
 $laptops: "only screen and (max-width : 1600px)";
 
-@import 'https://fonts.googleapis.com/css?family=Lato:300,300i,400';
 
 *{margin:0; padding:0;}
 html {height: 100%;}
-body{font-family:"Lato", sans-serif; font-weight: 300; height: 100%; overflow:hidden;}
+body{
+	font-family:Roboto,-apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", "sans-serif", sans-serif; 
+	font-weight: 300; 
+	height: 100%; 
+	overflow:hidden;
+}
 
 @keyframes makeInvisible { 0% { display:block; opacity: 1;} 99% {display: block;} 100%{opacity: 0; display:none}}
 
+
+/* Animations */
 .fade-out-down {
 	transform: translateY(50px);
 	opacity:0;
@@ -42,6 +48,16 @@ body{font-family:"Lato", sans-serif; font-weight: 300; height: 100%; overflow:hi
 	transition: transform 0.5s, opacity 0.5s;
 }
 
+/* global */
+.full {
+	position: absolute;
+	left: 0;
+	top:0;
+	bottom:0;
+	right:0;
+	z-index:9;
+}
+
 
 #main-page {
     min-height: 100%;
@@ -57,13 +73,10 @@ body{font-family:"Lato", sans-serif; font-weight: 300; height: 100%; overflow:hi
 }
 #main-title {
 	font-size: 80px;
-	line-height: 0.8;
-	opacity:0;	
+	line-height: 0.8;	
 	font-weight: 300;
-	font-family:"Lato";
 	color:white;
 	text-transform:uppercase;
-	transform:translateY(30vh);
 	.small {
 		font-size: 45px;
 	}
@@ -74,6 +87,15 @@ body{font-family:"Lato", sans-serif; font-weight: 300; height: 100%; overflow:hi
 		font-size: 40px;
 	}
 	
+}
+.animate-true #main-title {
+	opacity: 0;
+	transform: translateY(50px);
+	transition: all 0.3s;
+	&.animate-in {
+		transform: translateY(0);
+		opacity: 1;
+	}
 }
 #subtitle {
 	opacity:0;
@@ -94,9 +116,16 @@ body{font-family:"Lato", sans-serif; font-weight: 300; height: 100%; overflow:hi
 		font-size: 22px;
 	}
 }
-#main-title, #subtitle {
-	transition: opacity 2s, transform 1s;
+.animate-true #subtitle {
+	opacity: 0;
+	transform: translateY(50px);
+	transition: all 0.3s;
+	&.animate-in {
+		transform: translateY(0);
+		opacity: 1;
+	}
 }
+
 
 /* Icons */
 #main-list-container {
@@ -110,15 +139,46 @@ body{font-family:"Lato", sans-serif; font-weight: 300; height: 100%; overflow:hi
 	margin: 40px 0;
 }
 .main-list-item {
+	position: relative;
 	margin: 10px 20px;
 	display:inline-block;
 	width: 120px;
-	cursor:pointer;
 	transition: all 0.5s;
 	&:hover {
 		.main-list-item-icon-wrapper {
 			transform: translateY(-15px);
 		}
+	}
+
+}
+.animate-true .main-list-item {
+	transform: translateY(50px);
+	opacity:0;
+	transition: all 0.3s;
+	&.animate-in {
+		opacity: 1;
+		transform: translateY(0);
+	}
+	&:nth-child(2) {
+		transition-delay: 0.1s;
+	}
+	&:nth-child(3) {
+		transition-delay: 0.15s;
+	}
+	&:nth-child(4) {
+		transition-delay: 0.2s;
+	}
+	&:nth-child(5) {
+		transition-delay: 0.25s;
+	}
+	&:nth-child(6) {
+		transition-delay: 0.3s;
+	}
+	&:nth-child(7) {
+		transition-delay: 0.35s;
+	}
+	&:nth-child(8) {
+		transition-delay: 0.4s;
 	}
 }
 
@@ -149,6 +209,11 @@ body{font-family:"Lato", sans-serif; font-weight: 300; height: 100%; overflow:hi
 
 /*  Graph Page */
 #graph-page {
+}
+.chart-container {
+	max-width: 700px;
+	width: 100%;
+	margin: auto;
 }
 .back-button {
 	width: 40px;

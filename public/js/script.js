@@ -1,3 +1,44 @@
+function animateIn() {
+	var elements = document.getElementsByClassName("animate");
+	for(var i = 0; i < elements.length; i++){
+		elements[i].className += ' animate-in ';
+	}
+}
+function animateOut(){
+	$(".animate").each(function(){
+		$(this).removeClass("animate-in");
+	});
+}
+
+$(document).ready(function(){
+	animateIn();
+});
+
+//Listen for clicks to links
+var elements = document.getElementsByTagName('a');
+for (var i = 0; i < elements.length; i++) {
+  elements[i].addEventListener("click", function(evt) {
+	evt.preventDefault();
+    loadPage(this.href);
+  });
+}
+
+function loadPage(url){
+	console.log(url);
+	animateOut();
+	$.ajax({
+		method: "get",
+		data: {content_only: 'true'},
+		url: url,
+		success:function(data){
+			console.log(data);
+		},
+		error: function(data){
+			
+		}
+	});
+}
+
 function loadGraph(pathToData, graphType, page, transition){ 	
 	if (transition){
 		transitionToGraph();
@@ -31,8 +72,8 @@ function goToMainPage(e) {
 function transitionToMainPage(){
 	setTimeout(function(){document.getElementById("chart").className += ' invisible-move-down ';}, 0);
 	setTimeout(function(){document.getElementById("graph-page").className += ' hidden ';}, 700);
-	setTimeout(function(){document.getElementById("main-page").className = document.getElementById("main-page").className.replace(/\bhidden\b/,'');}, 700);
-	setTimeout(function(){document.getElementById("main-page").className = document.getElementById("main-page").className.replace(/\binvisible\b/,'');}, 800);
+	setTimeout(function(){document.getElementById("main-page").className = document.getElementById("main-page").className.replace(/\bhidden\b/,'');}, 400);
+	setTimeout(function(){document.getElementById("main-page").className = document.getElementById("main-page").className.replace(/\binvisible\b/,'');}, 500);
 	var icons = document.getElementsByClassName("main-list-item");
 	for(var i = 0; i < icons.length; i++){
 		makeVisible(icons[i], (i * 55) + 800);
@@ -65,10 +106,11 @@ function makeRequest(url, callback) {
 	
     if (httpRequest.readyState === XMLHttpRequest.DONE) {
       if (httpRequest.status === 200) {
-        var parsed = JSON.parse(httpRequest.responseText);		
+        var parsed = JSON.parse(httpRequest.responseText);	
+		console.log(parsed.default_chart_data);
 		var myBarChart = new Chart(ctx, {
 			type: 'bar',
-			data: parsed
+			data: parsed.default_chart_data
 		});
       } else {
         alert('There was a problem with the request.');

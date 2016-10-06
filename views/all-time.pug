@@ -1,0 +1,9 @@
+if (content_only != true)
+	include ../includes/head.pug
+section(id='graph-page' class=typeof page === "undefined" ? "transition" : "hidden transition")
+	a(class='back-button' href="/" onclick="goToMainPage(event)")
+		img(src='/images/back.png')
+	section(class='chart-container')
+		canvas(id='chart' class=typeof page === "undefined" ? "transition" : "invisible-move-down transition")
+if (content_only != true)
+	include ../includes/footer.pug	
